@@ -1,8 +1,11 @@
 package com.revature.raza.services;
 
-public interface BankService<T> extends Service<T> {
+import com.revature.raza.models.Account;
+import com.revature.raza.models.Customer;
 
-	public T createAccount(T customer); 
+public interface BankService extends Service {
+
+	public Account createAccount(Customer customer); 
 	
 	public boolean depositeFund(int account_id, double amount); 
 	

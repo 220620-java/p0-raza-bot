@@ -1,10 +1,11 @@
 package com.revature.raza.services;
+import com.revature.raza.models.Account;
 
 import com.revature.raza.data.BankCustomer;
 import com.revature.raza.data.CustomerAccount;
 import com.revature.raza.models.Customer;
 
-public class BankServiceImpl implements BankService<Customer> {
+public class BankServiceImpl implements BankService {
 	private BankCustomer bc = new BankCustomer(); 
 	private CustomerAccount ca = new CustomerAccount(); 
 	boolean isCustomer = false; 
@@ -28,10 +29,12 @@ public class BankServiceImpl implements BankService<Customer> {
 	}
 
 	@Override
-	public Customer createAccount(Customer customer) {
+	public Account createAccount(Customer customer) {
 		// TODO Auto-generated method stub
-		ca.create(customer); 
-		return null;
+		Account ac = ca.create(customer); 
+		
+		
+		return ac;
 	}
 
 	@Override

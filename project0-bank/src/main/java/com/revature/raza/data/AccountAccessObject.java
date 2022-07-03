@@ -1,9 +1,11 @@
 package com.revature.raza.data;
 
+import com.revature.raza.models.Customer;
+
 public interface AccountAccessObject<T> {
 	
-	public T create(T account); 
-	public T delete(T account); 
-	public T update(T account);
+	public T create(Customer account); 
+	public T delete(Customer account); 
+	public T update(Customer account);
 
 }

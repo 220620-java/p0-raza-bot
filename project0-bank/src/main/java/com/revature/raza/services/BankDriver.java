@@ -1,7 +1,6 @@
 package com.revature.raza.services;
 
-import java.sql.Date;
-
+import com.revature.raza.models.Account;
 import com.revature.raza.models.Customer;
 
 public class BankDriver {
@@ -21,6 +20,11 @@ public class BankDriver {
 		result = bs.signIn("Huda", "123456789"); 
 		if (result != null) {
 			System.out.println("Signed in successfully");
+		}
+		
+		Account ac = bs.createAccount(result); 
+		if (ac != null) {
+			System.out.println("Account created successfully");
 		}
 	}
 

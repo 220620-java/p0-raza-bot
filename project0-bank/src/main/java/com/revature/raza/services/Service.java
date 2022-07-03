@@ -1,13 +1,13 @@
 package com.revature.raza.services;
 
-import com.revature.raza.data.BankCustomer;
+import com.revature.raza.models.Customer;
 
-public interface Service<T> {
+public interface Service {
 	
 	
-	public T signUp(T customer);
+	public Customer signUp(Customer customer);
 	
-	public T signIn(String username, String passwd); 
+	public Customer signIn(String username, String passwd); 
 	
 	
 
