@@ -1,4 +1,4 @@
-package Utility;
+package com.revature.raza.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +52,7 @@ public class ConnectionObject {
 		// using properties file
 		String dbUrl = property.getProperty("url");
 		String dbUser = property.getProperty("usr");
-		String dbPass = property.getProperty("psw");
+		String dbPass = property.getProperty("pwd");
 		
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -60,11 +60,17 @@ public class ConnectionObject {
 					dbUrl,
 					dbUser,
 					dbPass);
+			System.out.println("passed");
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		return conn;
+	}
+	
+	public static void main(String[] args) {
+		ConnectionObject connObj = ConnectionObject.getConnectionUtil();
+		connObj.getConnection(); 
 	}
 
 

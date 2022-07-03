@@ -1,13 +1,9 @@
 package com.revature.raza.data;
 
-/** 
- * CRUD operation API
- * API to interact with data. Contain methods that needs 
- * to be implemented by class interacting with data source
- * @author razaghulam
- *
- */
-public interface Operations<T> {
+import java.util.List;
+
+
+public interface CustomerAccessObject<T> {
 	
 	/**
 	 * Create object
@@ -15,7 +11,7 @@ public interface Operations<T> {
 	 * @param t the object supplied by the caller
 	 * @return
 	 */
-	public T createAccount(T t); 
+	public T createCustomer(T t); 
 	
 	/**
 	 * Reads object
@@ -31,7 +27,7 @@ public interface Operations<T> {
 	 * Update the object in the data source if id matches. 
 	 * @param t object of type T that needs update
 	 */
-	public void updateRecord(T t); 
+	public boolean updateEmail(int i, String t); 
 	
 	
 	/**
@@ -39,6 +35,8 @@ public interface Operations<T> {
 	 * @param t object that needs to be removed. 
 	 * @return deleted object if existed else null. 
 	 */
-	public T deleteRecord (T t); 
+	public boolean deleteCustomer (T t); 
+	
+	public List<T> findAllCustomers(); 
 
 }
