@@ -9,5 +9,6 @@ public interface AccountAccessObject<T> {
 	public T findById(int account);
 	public T deposite(Customer customer, double amount); 
 	public T withdraw(Customer customer, double amount); 
+	public double balance(Customer customer); 
 
 }

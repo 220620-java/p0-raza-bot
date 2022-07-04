@@ -148,7 +148,6 @@ public class BankCustomer implements CustomerAccessObject<Customer> {
 	public List<Customer> findAllCustomers() {
 		// TODO Auto-generated method stub
 		
-		
 		return null;
 	}
 

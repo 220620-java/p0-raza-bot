@@ -111,13 +111,78 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 	@Override
 	public Account deposite(Customer customer, double amount) {
 		// TODO Auto-generated method stub
-		return null;
+		userAccount = findById(customer.getCustomer_id()); 
+		double currentBalance = userAccount.getBalance(); 
+		currentBalance += amount; 
+		userAccount.setBalance(currentBalance);
+		try (Connection conn = connObj.getConnection()){
+			
+			conn.setAutoCommit(false);
+			String sql = "update bankaccount "
+					+ "set balance =? "
+					+ "where customer_id = ?"; 
+			PreparedStatement st = conn.prepareStatement(sql); 
+			st.setDouble(1, currentBalance);
+			st.setInt(2, customer.getCustomer_id());
+			
+			int rowUpdated = st.executeUpdate();
+			
+			if (rowUpdated == 1) {
+				conn.commit();
+			} else {
+				conn.rollback();
+				userAccount = null; 
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userAccount; 
 	}
 
 	@Override
 	public Account withdraw(Customer customer, double amount) {
 		// TODO Auto-generated method stub
-		return null;
+		userAccount = findById(customer.getCustomer_id()); 
+		double currentBalance = userAccount.getBalance(); 
+		if (currentBalance < amount) {
+			currentBalance -= amount; 
+			userAccount.setBalance(currentBalance);
+			return userAccount; 
+		}else {
+			currentBalance -= amount; 
+			userAccount.setBalance(currentBalance);
+		}
+		
+		try (Connection conn = connObj.getConnection()){
+			
+			conn.setAutoCommit(false);
+			String sql = "update bankaccount "
+					+ "set balance =? "
+					+ "where customer_id = ?"; 
+			PreparedStatement st = conn.prepareStatement(sql); 
+			st.setDouble(1, currentBalance);
+			st.setInt(2, customer.getCustomer_id());
+			
+			int rowUpdated = st.executeUpdate();
+			
+			if (rowUpdated == 1) {
+				conn.commit();
+			} else {
+				conn.rollback();
+				userAccount = null; 
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userAccount;
+	}
+
+	@Override
+	public double balance(Customer customer) {
+		
+		// TODO Auto-generated method stub
+		userAccount = findById(customer.getCustomer_id()); 
+		return userAccount.getBalance() ;
 	}
 
 }

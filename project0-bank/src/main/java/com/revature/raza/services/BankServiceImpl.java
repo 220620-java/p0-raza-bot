@@ -43,22 +43,23 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public boolean depositeFund(Customer customer, double amount) {
+	public Account depositeFund(Customer customer, double amount) {
 		// TODO Auto-generated method stub
-		ca.deposite(customer, amount); 
-		return false;
+		return ca.deposite(customer, amount); 
+		
 	}
 
 	@Override
-	public double withdrawFund(Customer customer, double amount) {
+	public Account withdrawFund(Customer customer, double amount) {
 		// TODO Auto-generated method stub
-		return 0;
+		return ca.withdraw(customer, amount); 
 	}
 
 	@Override
-	public double viewBalance() {
+	public double viewBalance(Customer customer) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		return ca.balance(customer);
 	}
 
 	
