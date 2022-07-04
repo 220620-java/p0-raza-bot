@@ -4,7 +4,9 @@ import com.revature.raza.models.Account;
 import com.revature.raza.models.Customer;
 
 public class BankDriver {
-
+	
+	private static Account ac = null; 
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Customer result = null; 
@@ -22,10 +24,19 @@ public class BankDriver {
 			System.out.println("Signed in successfully");
 		}
 		
-		Account ac = bs.createAccount(result); 
+		ac = bs.createAccount(result); 
 		if (ac != null) {
 			System.out.println("Account created successfully");
 		}
+		
+		ac = bs.deleteAccount(result); 
+		if (ac != null) { 
+			System.out.println("Account DELETED succesfully ");
+		}
+		
+		
+		
+		
 	}
 
 }

@@ -8,6 +8,7 @@ import com.revature.raza.models.Customer;
 public class BankServiceImpl implements BankService {
 	private BankCustomer bc = new BankCustomer(); 
 	private CustomerAccount ca = new CustomerAccount(); 
+	
 	boolean isCustomer = false; 
 
 	@Override
@@ -31,20 +32,25 @@ public class BankServiceImpl implements BankService {
 	@Override
 	public Account createAccount(Customer customer) {
 		// TODO Auto-generated method stub
-		Account ac = ca.create(customer); 
+		return  ca.create(customer); 
 		
-		
-		return ac;
+	}
+	
+	@Override
+	public Account deleteAccount(Customer customer) {
+		// TODO Auto-generated method stub
+		return ca.delete(customer); 
 	}
 
 	@Override
-	public boolean depositeFund(int account_id, double amount) {
+	public boolean depositeFund(Customer customer, double amount) {
 		// TODO Auto-generated method stub
+		ca.deposite(customer, amount); 
 		return false;
 	}
 
 	@Override
-	public double withdrawFund(int account_id, double amount) {
+	public double withdrawFund(Customer customer, double amount) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -54,5 +60,7 @@ public class BankServiceImpl implements BankService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }

@@ -7,9 +7,11 @@ public interface BankService extends Service {
 
 	public Account createAccount(Customer customer); 
 	
-	public boolean depositeFund(int account_id, double amount); 
+	public Account deleteAccount(Customer customer); 
 	
-	public double withdrawFund(int account_id, double amount); 
+	public boolean depositeFund(Customer account_id, double amount); 
+	
+	public double withdrawFund(Customer account_id, double amount); 
 	
 	public double viewBalance();
 }

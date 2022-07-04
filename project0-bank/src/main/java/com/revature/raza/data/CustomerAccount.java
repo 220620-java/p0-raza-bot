@@ -2,6 +2,7 @@ package com.revature.raza.data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.raza.models.Account;
@@ -12,7 +13,7 @@ import com.revature.raza.utility.Generator;
 public class CustomerAccount implements AccountAccessObject<Account>{
 
 	private ConnectionObject connObj = ConnectionObject.getConnectionUtil();
-	
+	Account userAccount = null; 
 
 	@Override
 	public Account create(Customer account) {
@@ -20,7 +21,7 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 		int customer_id = account.getCustomer_id();
 		String account_no = Generator.randomGerenator(); 
 		double defaultVal = 0.00; 
-		Account userAccount = null; 
+		
 		
 		try (Connection conn =  connObj.getConnection()) {
 			
@@ -54,11 +55,67 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 	@Override
 	public Account delete(Customer account) {
 		// TODO Auto-generated method stub
+		try (Connection conn = connObj.getConnection()) {
+			
+			conn.setAutoCommit(false);
+			String sql = "delete from bankaccount "
+					+ "where customer_id=? "; 
+			
+			PreparedStatement st = conn.prepareStatement(sql); 
+			st.setInt(1, account.getCustomer_id());
+			
+			userAccount = findById(account.getCustomer_id()); 
+			
+			int rowDeleted = st.executeUpdate(); 
+			if (rowDeleted == 1) {
+				conn.commit();
+			}else {
+				conn.rollback();
+				userAccount = null;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return userAccount; 
+	}
+
+	@Override
+	public Account findById(int account) {
+
+		// TODO Auto-generated method stub
+		try (Connection conn = connObj.getConnection()){
+			
+			String sql = "select * from bankaccount "
+					+ "where customer_id =?"; 
+			
+			PreparedStatement st = conn.prepareStatement(sql); 
+			
+			st.setInt(1, account);
+			
+			ResultSet result = st.executeQuery();
+			
+			if (result.next()) {
+				userAccount =
+						new Account(result.getString("account_no"),
+								"Checking" ,result.getDouble("balance")); 
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return userAccount;
+	}
+
+	
+	@Override
+	public Account deposite(Customer customer, double amount) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Account update(Customer account) {
+	public Account withdraw(Customer customer, double amount) {
 		// TODO Auto-generated method stub
 		return null;
 	}
