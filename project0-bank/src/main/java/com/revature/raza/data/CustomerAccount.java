@@ -46,7 +46,8 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 				userAccount = null; 
 			}	
 		}catch (SQLException e) {
-			e.printStackTrace();
+			userAccount = null; 
+			System.out.println(e.getMessage()); 
 		}
 		
 		return userAccount;

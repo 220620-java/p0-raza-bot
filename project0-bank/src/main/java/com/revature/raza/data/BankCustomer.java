@@ -47,7 +47,8 @@ public class BankCustomer implements CustomerAccessObject<Customer> {
 			}
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			t = null; 
+			System.out.println(e.getMessage());
 		}
 		
 		return t;
