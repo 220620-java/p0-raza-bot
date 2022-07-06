@@ -58,7 +58,7 @@ public class BankCustomer implements CustomerAccessObject<Customer> {
 	public Customer findByUsername(String s) {
 		// TODO Auto-generated method stub
 		
-		Customer user = null; 
+		Customer customer = null; 
 		try (Connection conn = connObj.getConnection()) {
 			String sql = "select * from Customer  "
 					+ "where "
@@ -77,12 +77,12 @@ public class BankCustomer implements CustomerAccessObject<Customer> {
 				String phone = result.getString("phone"); 
 				String passwd = result.getString("passwd"); 
 				
-				user = new Customer(customer_id, username, birthDate, email, phone, passwd); 
+				customer = new Customer(customer_id, username, birthDate, email, phone, passwd); 
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return user;
+		return customer;
 	}
 	
 	@Override

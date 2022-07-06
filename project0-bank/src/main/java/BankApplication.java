@@ -2,6 +2,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import com.revature.raza.ds.ArrayList;
+import com.revature.raza.ds.List;
 import com.revature.raza.models.Account;
 import com.revature.raza.models.Customer;
 import com.revature.raza.services.BankServiceImpl;
@@ -14,10 +16,13 @@ public class BankApplication {
 	
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
-		System.out.println("Welcome to our Commercial Bank");
+		System.out.println("Welcome to our Raza's Bank Application");
+		System.out.println("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n");
 		boolean isActive = true; 
 		Customer customer = null; 
 		Account account = null; 
+		
+		List<Customer> accountHolders = new ArrayList<>(); 
 		while (isActive) {
 			if (customer == null) {
 				System.out.println("Choose one of the following options \n"
@@ -46,7 +51,8 @@ public class BankApplication {
 						+ "C. Withdraw fund \n"
 						+ "D. View balance \n"
 						+ "E. Delete your acccount\n"
-						+ "F. To exit\n"); 
+						+ "F. View Account Holders\n"
+						+ "G. To exit\n"); 
 				String input = scanner.nextLine().toUpperCase(); 
 				
 				switch(input) {
@@ -66,6 +72,9 @@ public class BankApplication {
 					account = deleteAccount(customer); 
 					break; 
 				case "F": 
+						accountHolders();
+						break; 
+				case "G": 
 						System.out.println("signing out...");
 						customer = null; 
 						account = null; 
@@ -79,6 +88,22 @@ public class BankApplication {
 		}//outer while loop
 		scanner.close();
 	}
+
+
+	private static void accountHolders() {
+		// TODO Auto-generated method stub
+		List<Customer> accountHolders = bankService.viewAccountHolders(); 
+		System.out.println("We are pround of our account holders: \n");
+		Customer customer = new Customer(); 
+		for (int i = 0; i < accountHolders.size(); i++) {
+			customer = accountHolders.get(i); 
+			System.out.println(customer.toString());
+		}
+		System.out.println("End\n");
+		
+	}
+		
+		
 
 
 	private static Customer signIn() {

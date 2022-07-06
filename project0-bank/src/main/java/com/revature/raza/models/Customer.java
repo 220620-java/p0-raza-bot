@@ -31,8 +31,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [customer_id=" + customer_id + ", username=" + username + ", birthDate=" + birthDate
-				+ ", email=" + email + ", phone=" + phone + ", passwd=" + passwd + "]";
+		return "\n	customer_id  " + customer_id + "\n	username  " + username + "\n	birthDate  " + birthDate
+				+ "\n	email  " + email + "\n	phone  " + phone + "\n";
 	}
 
 

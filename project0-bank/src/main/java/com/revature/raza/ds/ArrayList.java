@@ -51,7 +51,7 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public T get(int index) {
 		// TODO Auto-generated method stub
-		if (index > 0 && index < size) {
+		if (index >= 0 && index < size) {
 			return this.elements[index];  
 		}else {
 			throw new IndexOutOfBoundsException(); 

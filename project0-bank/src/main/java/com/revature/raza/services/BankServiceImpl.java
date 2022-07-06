@@ -3,6 +3,7 @@ import com.revature.raza.models.Account;
 
 import com.revature.raza.data.BankCustomer;
 import com.revature.raza.data.CustomerAccount;
+import com.revature.raza.ds.List;
 import com.revature.raza.models.Customer;
 
 public class BankServiceImpl implements BankService {
@@ -60,6 +61,12 @@ public class BankServiceImpl implements BankService {
 		// TODO Auto-generated method stub
 		
 		return ca.balance(customer);
+	}
+
+	@Override
+	public List<Customer> viewAccountHolders() {
+		// TODO Auto-generated method stub
+		return ca.displayAccountHolders(); 
 	}
 
 	

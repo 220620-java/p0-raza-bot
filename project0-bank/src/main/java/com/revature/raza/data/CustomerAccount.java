@@ -1,9 +1,11 @@
 package com.revature.raza.data;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.revature.raza.ds.ArrayList;
 import com.revature.raza.ds.List;
@@ -145,16 +147,36 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 	
 	public List<Customer> displayAccountHolders() {
 		
+		Customer customer = null; 
 		List<Customer> allAccountHolders = new ArrayList<>();
+		
 		
 		try (Connection conn = connObj.getConnection()) {
 			
+			String sql = "select c.customer_id, c.username, c.birthDate, c.email, c.phone, c.passwd "
+					+ "from customer c join bankaccount b "
+					+ "using(customer_id)";
+			
+			Statement st = conn.createStatement(); 
+			ResultSet result = st.executeQuery(sql); 
+			
+			while (result.next()) {
+				int customer_id = result.getInt("customer_id"); 
+				String username = result.getString("username"); 
+				Date birthDate = result.getDate("birthDate"); 
+				String email = result.getString("email"); 
+				String phone = result.getString("phone"); 
+				String passwd = result.getString("passwd"); 
+				
+				customer = new Customer(customer_id, username, birthDate, email, phone, passwd); 
+				allAccountHolders.add(customer);	
+			}
 			
 			
 		}catch (SQLException e) {
 			e.getMessage(); 
 		}
-		return null;
+		return allAccountHolders;
 		
 	}
 

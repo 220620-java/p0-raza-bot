@@ -27,8 +27,8 @@ class TestBankCustomer {
 	
 	@Test
 	public void testCreateCustomer() {
-		Customer customer = new Customer(3, "Mubasher", new Date(2021-01-01),
-				"m@gmail.com", "19021100110", "33222"); 
+		Customer customer = new Customer(9, "Mubasher", new Date(2021-01-01),
+				"mmm@gmail.com", "19021100110", "3322222"); 
 		assertEquals(customer, bankCustomer.createCustomer(customer)); 
 	}
 	
@@ -51,7 +51,7 @@ class TestBankCustomer {
 	@Test
 	public void testDeleteCustomer()
 	{
-		int mockId = 4; 
+		int mockId = 7; 
 		Mockito.when(customer.getCustomer_id()).thenReturn(mockId); 
 		boolean isDeleted = bankCustomer.deleteCustomer(customer); 
 		assertTrue(isDeleted); 
