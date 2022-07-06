@@ -2,7 +2,7 @@ package com.revature.raza.utility;
 
 public class Generator {
 
-	public static String randomGerenator() {
+	public String randomGerenator() {
 		
 		long number = (long) Math.floor(Math.random() * 9000000000000L)
 				+ 1000000000000L;

@@ -6,7 +6,7 @@ public class Account {
 	private String account_type; 
 	private double balance;
 	
-	
+	public Account() {}
 	public Account(String account_no, String account_type, double balance) {
 		super();
 		this.account_no = account_no;

@@ -37,6 +37,5 @@ public interface CustomerAccessObject<T> {
 	 */
 	public boolean deleteCustomer (T t); 
 	
-	public List<T> findAllCustomers(); 
 
 }

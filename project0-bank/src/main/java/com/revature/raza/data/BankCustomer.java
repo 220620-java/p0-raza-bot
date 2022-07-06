@@ -145,12 +145,7 @@ public class BankCustomer implements CustomerAccessObject<Customer> {
 		return isDeleted;
 	}
 
-	@Override
-	public List<Customer> findAllCustomers() {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
+	
 
 	
 	

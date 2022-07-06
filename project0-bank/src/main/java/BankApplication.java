@@ -2,26 +2,28 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import com.revature.raza.models.Account;
 import com.revature.raza.models.Customer;
 import com.revature.raza.services.BankServiceImpl;
 
 public class BankApplication {
 	private static BankServiceImpl bankService = new BankServiceImpl(); 
+	
 	private static Scanner scanner = new Scanner(System.in);
+	private static boolean hasAccount = false; 
 	
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
 		System.out.println("Welcome to our Commercial Bank");
 		boolean isActive = true; 
-		
-		
 		Customer customer = null; 
+		Account account = null; 
 		while (isActive) {
 			if (customer == null) {
 				System.out.println("Choose one of the following options \n"
 						+ "1. Sign in\n"
 						+ "2. Sign up\n"
-						+ "e. Exit");
+						+ "3. Enter \\e for Exit");
 				
 				String input = scanner.nextLine(); 
 				switch(input) {
@@ -37,13 +39,47 @@ public class BankApplication {
 				}
 				
 			}
-			if (customer != null) {
-				System.out.println("Welcome to our account services page. ");	
-				isActive = false; 
+			while (customer != null) {
+				System.out.println("Choose one of the followings: \n ");	
+				System.out.println("A. Create Account \n"
+						+ "B. Deposite fund \n"
+						+ "C. Withdraw fund \n"
+						+ "D. View balance \n"
+						+ "E. Delete your acccount\n"
+						+ "F. To exit\n"); 
+				String input = scanner.nextLine().toUpperCase(); 
+				
+				switch(input) {
+				case "A": 
+					account = createAccount(customer); 
+					break; 
+				case "B": 
+					account = depositeFund(customer); 
+					break; 
+				case "C": 
+					account = withdrawFund(customer); 
+					break; 
+				case "D": 
+					double balance = viewBalance(customer);
+					break; 
+				case "E": 
+					account = deleteAccount(customer); 
+					break; 
+				case "F": 
+						System.out.println("signing out...");
+						customer = null; 
+						account = null; 
+				default: 
+						System.out.println("Leaving.... Bye bye\n");
+						customer = null; 
+						account = null; 
+				}
 			}
 		
 		}//outer while loop
+		scanner.close();
 	}
+
 
 	private static Customer signIn() {
 		boolean isSigning = true; 
@@ -104,6 +140,94 @@ public class BankApplication {
 		return customer; 
 		
 	}
+
+	private static Account createAccount(Customer customer) {
+		// TODO Auto-generated method stub
+		Account account = null; 
+		account = bankService.createAccount(customer); 
+		if (account != null) {
+			hasAccount = true; 
+			System.out.println("Account created successfully \n");
+			
+		}
+		return account;
+	}
+	
+	private static Account depositeFund(Customer customer) {
+		// TODO Auto-generated method stub
+		if (!hasAccount) {
+			System.out.println("You do not have an account.Please create one");
+			return null; 
+		}
+		Account account = null; 
+		System.out.println("Enter the amount: ");
+		String input = scanner.nextLine(); 
+		
+		double amount = Double.parseDouble(input); 
+		account = bankService.depositeFund(customer, amount); 
+		if (account != null) {
+			System.out.println("$" + amount + "is added to your account ");
+			System.out.println("You new balance is: " + "$" + account.getBalance());
+		}else {
+			System.out.println("We encountered an issue with the deposite. Try later");
+			return null; 
+		}
+		return account;
+	}
+
+	private static Account withdrawFund(Customer customer) {
+		
+		if (!hasAccount) {
+			System.out.println("You do not have an account.Please create one");
+			return null; 
+		}
+		
+		Account account = null; 
+		System.out.println("Enter the amount: ");
+		String input = scanner.nextLine(); 
+		double amount = Double.parseDouble(input); 
+		
+		account = bankService.withdrawFund(customer, amount); 
+		if (account != null) {
+			System.out.println("$" + amount + " is withdrawn from the account");
+			System.out.println("Current balance is: " + account.getBalance());
+		}else {
+			System.out.println("You do not have sufficient fund");
+		}
+		return account;
+		
+	}
+	
+	private static double viewBalance(Customer customer) {
+		// TODO Auto-generated method stub
+		if (!hasAccount) {
+			System.out.println("You do not have account.Please create one");
+			return -1.00; 
+		}
+		double balance = bankService.viewBalance(customer);
+		System.out.println("Your current balance is: " + balance);
+		return balance; 
+	}
+
+	private static Account deleteAccount(Customer customer) {
+		// TODO Auto-generated method stub
+		if(!hasAccount) {
+			System.out.println("You do not have an account to delete. "
+					+ "Please create one first");
+			return null; 
+		}
+		Account account = null; 
+		account = bankService.deleteAccount(customer); 
+		if (account != null) {
+			System.out.println("Account deleted successfully!");
+		}
+		return account;
+	}
+
+	
+
+	
+	
 
 
 

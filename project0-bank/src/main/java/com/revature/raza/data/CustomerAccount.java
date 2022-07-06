@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.revature.raza.ds.ArrayList;
+import com.revature.raza.ds.List;
 import com.revature.raza.models.Account;
 import com.revature.raza.models.Customer;
 import com.revature.raza.utility.ConnectionObject;
@@ -13,13 +15,14 @@ import com.revature.raza.utility.Generator;
 public class CustomerAccount implements AccountAccessObject<Account>{
 
 	private ConnectionObject connObj = ConnectionObject.getConnectionUtil();
-	Account userAccount = null; 
+	Account userAccount = null;
+	Generator gen = new Generator(); 
 
 	@Override
 	public Account create(Customer account) {
 		// TODO Auto-generated method stub
 		int customer_id = account.getCustomer_id();
-		String account_no = Generator.randomGerenator(); 
+		String account_no = gen.randomGerenator(); 
 		double defaultVal = 0.00; 
 		
 		
@@ -84,10 +87,11 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 	public Account findById(int account) {
 
 		// TODO Auto-generated method stub
+		userAccount = null; 
 		try (Connection conn = connObj.getConnection()){
 			
 			String sql = "select * from bankaccount "
-					+ "where customer_id =?"; 
+					+ "where bankaccount.customer_id =?"; 
 			
 			PreparedStatement st = conn.prepareStatement(sql); 
 			
@@ -102,13 +106,12 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 				
 			}
 		}catch(SQLException e) {
-			e.printStackTrace();
+			e.getMessage(); 
 		}
 		
 		return userAccount;
 	}
 
-	
 	@Override
 	public Account deposite(Customer customer, double amount) {
 		// TODO Auto-generated method stub
@@ -139,19 +142,33 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 		}
 		return userAccount; 
 	}
+	
+	public List<Customer> displayAccountHolders() {
+		
+		List<Customer> allAccountHolders = new ArrayList<>();
+		
+		try (Connection conn = connObj.getConnection()) {
+			
+			
+			
+		}catch (SQLException e) {
+			e.getMessage(); 
+		}
+		return null;
+		
+	}
 
 	@Override
 	public Account withdraw(Customer customer, double amount) {
 		// TODO Auto-generated method stub
 		userAccount = findById(customer.getCustomer_id()); 
 		double currentBalance = userAccount.getBalance(); 
-		if (currentBalance < amount) {
+		if (currentBalance >= amount) {
 			currentBalance -= amount; 
 			userAccount.setBalance(currentBalance);
 			return userAccount; 
 		}else {
-			currentBalance -= amount; 
-			userAccount.setBalance(currentBalance);
+			userAccount = null;
 		}
 		
 		try (Connection conn = connObj.getConnection()){
@@ -180,10 +197,14 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 
 	@Override
 	public double balance(Customer customer) {
-		
 		// TODO Auto-generated method stub
 		userAccount = findById(customer.getCustomer_id()); 
-		return userAccount.getBalance() ;
+		if (userAccount != null) {
+			return userAccount.getBalance() ;
+		}
+		return -1.00; 
 	}
+	
+	
 
 }
