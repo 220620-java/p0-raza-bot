@@ -244,6 +244,7 @@ public class BankApplication {
 		Account account = null; 
 		account = bankService.deleteAccount(customer); 
 		if (account != null) {
+			hasAccount = false; 
 			System.out.println("Account deleted successfully!");
 		}
 		return account;

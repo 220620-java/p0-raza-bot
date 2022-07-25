@@ -34,7 +34,7 @@ class TestBankCustomer {
 	
 	@Test
 	public void testFindByUsername() {
-		String username = "Saba"; 
+		String username = "Huda"; 
 		Customer customer = bankCustomer.findByUsername(username); 
 		assertNotNull(customer); 
 	}

@@ -6,11 +6,6 @@ import java.sql.Date;
 
 import com.revature.raza.models.Customer;
 
-
-
-;
-
-
 public class Driver {
 
 	public static void main(String[] args) {

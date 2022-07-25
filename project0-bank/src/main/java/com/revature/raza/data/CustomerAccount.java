@@ -186,7 +186,7 @@ public class CustomerAccount implements AccountAccessObject<Account>{
 		userAccount = findById(customer.getCustomer_id()); 
 		double currentBalance = userAccount.getBalance(); 
 		if (currentBalance >= amount) {
-			currentBalance -= amount; 
+			currentBalance = currentBalance - amount; 
 			userAccount.setBalance(currentBalance);
 			return userAccount; 
 		}else {

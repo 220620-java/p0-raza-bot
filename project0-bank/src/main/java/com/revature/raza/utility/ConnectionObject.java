@@ -60,18 +60,11 @@ public class ConnectionObject {
 					dbUrl,
 					dbUser,
 					dbPass);
-			System.out.println("passed");
+			//System.out.println("passed");
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		return conn;
 	}
-	
-	public static void main(String[] args) {
-		ConnectionObject connObj = ConnectionObject.getConnectionUtil();
-		connObj.getConnection(); 
-	}
-
-
 }
